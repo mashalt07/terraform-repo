@@ -10,8 +10,8 @@ jobs:
         runs-on: ubuntu-latest
 
         defaults:
-            run: 
-              working-directory: ${{ env.tf_actions_working_dir }}
+          run: 
+            working-directory: ${{ env.tf_actions_working_dir }}
 
         steps:
         - uses: actions/checkout@v4
