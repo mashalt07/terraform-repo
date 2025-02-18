@@ -1,7 +1,7 @@
 terraform {
   backend "s3" {
     bucket = "maltamash-tf-state-bucket"
-    key = "statefile"
+    key    = "statefile"
     region = "eu-west-2"
   }
   required_providers {
@@ -13,7 +13,7 @@ terraform {
 }
 
 provider "aws" {
-    region = "eu-west-2"
+  region = "eu-west-2"
 }
 
 resource "aws_instance" "app_server" {
