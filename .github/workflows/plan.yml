@@ -9,7 +9,6 @@ jobs:
     plan:
         runs-on: ubuntu-latest
 
-
         steps:
         - uses: actions/checkout@v4
 
@@ -21,10 +20,14 @@ jobs:
             aws-region: eu-west-2
         
         - name: Setup terraform 
-          uses: hashicorp/setup-terraform@v2 
+          uses: hashicorp/setup-terraform@v3
         
         - name: Run terraform init
           run: terraform init
         
+        - name: Run terraform validate
+          id: validate
+          run: terraform validate
+        
         - name: Run terraform plan 
-          run: terraform plan
+          run: terraform plan 
