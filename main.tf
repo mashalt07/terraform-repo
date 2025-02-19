@@ -87,7 +87,7 @@ resource "aws_db_instance" "rds_app" {
   engine               = "postgres"
   instance_class       = "db.t3.micro"
   identifier           = "maltamash-task-listing"
-  db_name              = "maltamash-task-listing-database"
+  db_name              = "maltamashtasklistingdb"
   username             = "root"
   password             = "password"
   skip_final_snapshot  = true
@@ -102,4 +102,5 @@ resource "aws_iam_role_policy_attachment" "ecr_policy" {
 resource "aws_s3_bucket" "example" {
   bucket = "maltamash-dockerrun"
 }
+
 
