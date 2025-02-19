@@ -85,14 +85,13 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
 resource "aws_db_instance" "rds_app" {
   allocated_storage    = 10
   engine               = "postgres"
-  engine_version       = "16.2"
   instance_class       = "db.t3.micro"
   identifier           = "maltamash-task-listing"
   db_name              = "maltamash-task-listing-database"
   username             = "root"
   password             = "password"
   skip_final_snapshot  = true
-  publicly_accessible = true
+  publicly_accessible  = true
 }
 
 resource "aws_iam_role_policy_attachment" "ecr_policy" {
