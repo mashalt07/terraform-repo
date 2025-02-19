@@ -65,3 +65,19 @@ resource "aws_iam_role" "example_app_ec2_role" {
     ]
   })
 }
+
+resource "aws_iam_role_policy_attachment" "policy_attachment_one" {
+  role = aws_iam_role.example_app_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWebTier"
+}
+
+resource "aws_iam_role_policy_attachment" "policy_attachment_two" {
+  role = aws_iam_role.example_app_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkMulticontainerDocker"
+}
+
+resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
+  role = aws_iam_role.example_app_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
+}
+
