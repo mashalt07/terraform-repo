@@ -86,8 +86,8 @@ resource "aws_db_instance" "rds_app" {
   engine               = "postgres"
   engine_version       = "15.3"
   instance_class       = "db.t3.micro"
-  identifier           = "maltamash-example-app-prod"
-  db_name              = "maltamash-example-app-database-name"
+  identifier           = "maltamash-task-listing"
+  db_name              = "maltamash-task-listing-database"
   username             = "root"
   password             = "password"
   skip_final_snapshot  = true
