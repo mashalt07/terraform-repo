@@ -81,3 +81,6 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
+resource "aws_s3_bucket" "example" {
+  bucket = "maltamash-dockerrun"
+}
