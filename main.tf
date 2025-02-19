@@ -85,7 +85,7 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
 resource "aws_db_instance" "rds_app" {
   allocated_storage    = 10
   engine               = "postgres"
-  engine_version       = "15.5"
+  engine_version       = "16.2"
   instance_class       = "db.t3.micro"
   identifier           = "maltamash-task-listing"
   db_name              = "maltamash-task-listing-database"
