@@ -81,3 +81,15 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
+resource "aws_db_instance" "rds_app" {
+  allocated_storage    = 10
+  engine               = "postgres"
+  engine_version       = "15.3"
+  instance_class       = "db.t3.micro"
+  identifier           = "maltamash-example-app-prod"
+  db_name              = "maltamash-example-app-database-name"
+  username             = "root"
+  password             = "password"
+  skip_final_snapshot  = true
+  publicly_accessible = true
+}
