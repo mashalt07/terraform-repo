@@ -81,6 +81,11 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
+resource "aws_iam_role_policy_attachment" "ecr_policy" {
+  role = aws_iam_role.example_app_ec2_role.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+}
+
 resource "aws_s3_bucket" "example" {
   bucket = "maltamash-dockerrun"
 }
