@@ -1,33 +1,16 @@
-terraform {
-  backend "s3" {
-    bucket = "maltamash-tf-state-bucket"
-    key    = "terraform.tfstate"
-    region = "eu-west-2"
-  }
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
-provider "aws" {
-  region = "eu-west-2"
+resource "aws_ecr_repository" "tasklist_repo" {
+  name = "${var.app_name}-task-listing-repo"
 }
 
 resource "aws_elastic_beanstalk_application" "example_app" {
-  name        = "maltamash-task-listing-app"
+  name        = "${var.app_name}-task-listing-app"
   description = "Task listing app"
 }
 
 resource "aws_elastic_beanstalk_environment" "example_app_environment" {
-  name                = "maltamash-task-listing-app-environment"
+  name                = "${var.app_name}-task-listing-app-environment"
   application         = aws_elastic_beanstalk_application.example_app.name
 
-  # This page lists the supported platforms
-  # we can use for this argument:
-  # https://docs.aws.amazon.com/elasticbeanstalk/latest/platforms/platforms-supported.html#platforms-supported.docker
   solution_stack_name = "64bit Amazon Linux 2023 v4.0.1 running Docker"
 
   setting {
@@ -44,11 +27,12 @@ resource "aws_elastic_beanstalk_environment" "example_app_environment" {
 } 
 
 resource "aws_iam_instance_profile" "example_app_ec2_instance_profile" {
-  name = "maltamash-task-listing-app-ec2-instance-profile"
+  name = "${var.app_name}-task-listing-app-ec2-instance-profile"
   role = aws_iam_role.example_app_ec2_role.name
 }
+
 resource "aws_iam_role" "example_app_ec2_role" {
-  name = "maltamash-task-listing-app-ec2-instance-role"
+  name = "${var.app_name}-task-listing-app-ec2-instance-role"
   // Allows the EC2 instances in our EB environment to assume (take on) this 
   // role.
   assume_role_policy = jsonencode({
@@ -81,26 +65,24 @@ resource "aws_iam_role_policy_attachment" "policy_attachment_three" {
   policy_arn = "arn:aws:iam::aws:policy/AWSElasticBeanstalkWorkerTier"
 }
 
-
-resource "aws_db_instance" "rds_app" {
-  allocated_storage    = 10
-  engine               = "postgres"
-  instance_class       = "db.t3.micro"
-  identifier           = "maltamash-task-listing"
-  db_name              = "maltamashtasklistingdb"
-  username             = "root"
-  password             = "password"
-  skip_final_snapshot  = true
-  publicly_accessible  = true
-}
-
 resource "aws_iam_role_policy_attachment" "ecr_policy" {
   role = aws_iam_role.example_app_ec2_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "maltamash-dockerrun"
+  bucket = "${var.app_name}-dockerrun"
 }
 
+resource "aws_db_instance" "rds_app" {
+  allocated_storage    = 10
+  engine               = "postgres"
+  instance_class       = "db.t3.micro"
+  identifier           = "${var.app_name}-task-listing"
+  db_name              = "${var.app_name}tasklistingdb"
+  username             = "root"
+  password             = var.db_password
+  skip_final_snapshot  = true
+  publicly_accessible  = true
+}
 
