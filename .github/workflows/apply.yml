@@ -25,4 +25,4 @@ jobs:
           run: terraform init
         
         - name: Run terraform apply
-          run: terraform apply -auto-approve
+          run: terraform apply -auto-approve -var="db_password=${{ secrets.DB_PASSWORD }}"
