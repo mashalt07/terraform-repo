@@ -30,13 +30,7 @@ resource "aws_elastic_beanstalk_environment" "example_app_environment" {
     name = "DB_USER"
     value = aws_db_instance.rds_app.username
   }
-
-   setting {
-    namespace = "aws:elasticbeanstalk:application:environment"
-    name = "DB_USER"
-    value = aws_db_instance.rds_app.username
-  }
-
+  
   setting {
     namespace = "aws:elasticbeanstalk:application:environment"
     name = "DB_PASSWORD"
