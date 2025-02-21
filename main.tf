@@ -23,6 +23,30 @@ resource "aws_elastic_beanstalk_environment" "example_app_environment" {
     namespace = "aws:autoscaling:launchconfiguration"
     name = "EC2KeyName"
     value = "maltamash-keypair"
+  } 
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "DB_USER"
+    value = aws_db_instance.rds_app.username
+  }
+  
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "DB_PASSWORD"
+    value = var.db_password
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "DB_DATABASE"
+    value = aws_db_instance.rds_app.db_name
+  }
+
+  setting {
+    namespace = "aws:elasticbeanstalk:application:environment"
+    name = "DB_HOST"
+    value = aws_db_instance.rds_app.address
   }
 } 
 
